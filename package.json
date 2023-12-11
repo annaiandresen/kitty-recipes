@@ -1,0 +1,24 @@
+{
+  "name": "root",
+  "version": "1.0.0",
+  "author": "Anna Andresen <anna.irene.andresen@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint:backend": "eslint backend/**/*.ts --fix",
+    "lint:frontend": "eslint frontend/**/*.tsx --fix",
+    "format:backend": "prettier --write backend/**/*.ts",
+    "format:frontend": "prettier --write frontend/**/*.tsx"
+  },
+  "dependencies": {
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.1.1"
+  }
+}
