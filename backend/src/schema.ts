@@ -11,23 +11,25 @@ export const typeDefs = `
   }
 
   type Query {
-    allUsers: [User!]!
+    users: [User!]!
+    user(id: ID, email: String): User!
   }
-
 
   scalar DateTime
 
   type User {
     email: String!
     id: ID!
-    name: String
+    firstName: String!
+    lastName: String!
     createdAt: DateTime!
     isAdmin: Boolean!
   }
 
   input UserCreateInput {
     email: String!
-    name: String
+    firstName: String!
+    lastName: String!
   }
 
   input UserInput {
@@ -40,8 +42,19 @@ export const typeDefs = `
 export const resolvers = {
   DateTime: DateTimeResolver,
   Query: {
-    allUsers: (_parent, _args, context: Context) => {
+    users: (_parent, _args, context: Context) => {
       return context.prisma.user.findMany()
+    },
+    user: (_parent, args: UserInput, context: Context) => {
+      if (!args.id && !args.email) {
+        throw new Error('id or email is required')
+      }
+      return context.prisma.user.findUnique({
+        where: {
+          id: args?.id || undefined,
+          email: args.email || undefined,
+        },
+      })
     },
   },
   Mutation: {
@@ -53,13 +66,17 @@ export const resolvers = {
       if (!args.data.email) {
         throw new Error('Email is required')
       }
-      if (!args.data.name) {
-        throw new Error('Name is required')
+      if (!args.data.lastName) {
+        throw new Error('Last name is required')
+      }
+      if (!args.data.firstName) {
+        throw new Error('First name is required')
       }
 
       const user = await context.prisma.user.create({
         data: {
-          name: args.data.name,
+          firstName: args.data.firstName,
+          lastName: args.data.lastName,
           email: args.data.email,
         },
       })
@@ -100,7 +117,8 @@ export const resolvers = {
 
 interface UserCreateInput {
   email: string
-  name?: string
+  firstName: string
+  lastName: string
 }
 
 interface UserInput {

@@ -13,7 +13,8 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
-  name      String
+  firstName String
+  lastName  String
   createdAt DateTime @default(now())
   isAdmin   Boolean  @default(false)
 }
