@@ -5,7 +5,9 @@ import { Suspense } from 'solid-js';
 import './index.css';
 import App from './App';
 import { Router, Route } from '@solidjs/router';
-import Hero from './Hero';
+import LandingPage from './pages/LandingPage';
+import SignUpPage from './pages/SignUpPage';
+import SignInPage from './pages/SignInPage';
 
 const root = document.getElementById('root');
 
@@ -23,8 +25,10 @@ render(
     <ApolloProvider client={client}>
       <Suspense fallback={<>App is loading…</>}>
         <Router>
-          <Route path="/" component={Hero} />
-          <Route path="/app" component={App} />
+          <Route path="/landing-page" component={LandingPage} />
+          <Route path="/" component={App} />
+          <Route path="/signup" component={SignUpPage} />
+          <Route path="/signin" component={SignInPage} />
         </Router>
       </Suspense>
     </ApolloProvider>

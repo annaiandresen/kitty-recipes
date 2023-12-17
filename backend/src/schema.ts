@@ -12,7 +12,7 @@ export const typeDefs = `
 
   type Query {
     users: [User!]!
-    user(id: ID, email: String): User!
+    user(id: ID, email: String): User
   }
 
   scalar DateTime

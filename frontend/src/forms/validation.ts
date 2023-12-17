@@ -34,7 +34,6 @@ export function useForm({ errorClass }: FormOptions = {}) {
     ref.oninput = () => {
       if (!errors[ref.name]) return;
       setErrors({ [ref.name]: undefined });
-      errorClass && ref.classList.toggle(errorClass, false);
     };
   };
 
@@ -79,7 +78,6 @@ function checkValid(config: FieldConfig, setErrors: (errors: FormErrors) => void
     }
 
     if (message) {
-      errorClass && element.classList.toggle(errorClass, true);
       setErrors({ [element.name]: message });
     }
   };
